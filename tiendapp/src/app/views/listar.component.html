@@ -1,0 +1,28 @@
+<div class="container">
+	<h3>{{titulo}}</h3>
+	<hr>
+
+	<div *ngIf="!productos">
+		Cargando el listado de productos...
+	</div>
+	<div *ngIf="productos">
+		<div class="row" >
+			
+		<div class="col-md-4" *ngFor="let producto of productos">
+			<div class="card" style="width: 18rem;">
+					<!--<img src="..." class="card-img-top" alt="...">-->
+					<div class="card-body">
+						<h5 class="card-title">{{producto.name}}</h5>
+						<ul>
+							<li>{{producto.price}}</li>
+							<li>{{producto.quantity}}</li>
+						</ul>
+						<a href="#" class="btn btn-primary">Comprar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
