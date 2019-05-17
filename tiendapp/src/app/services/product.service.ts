@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ProductService{
 	public url:string;
+	public filesToUpload;
+	public resultUpload;
 
 	constructor(
 		public _http: Http
@@ -22,6 +24,11 @@ export class ProductService{
 		//return "Texto enviado desde el servicio";
 		return this._http.get(this.url+'api/products').pipe(map(res=>res.json()));
 	}
+
+	
+
+
+	
 
 }
 

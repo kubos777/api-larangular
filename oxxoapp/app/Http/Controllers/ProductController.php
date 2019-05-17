@@ -14,6 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //
         return Product::all();
     }
 
@@ -36,12 +37,36 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $producto = new Product;
-        $producto->name = $request->name;
-        $producto->price = $request->price;
-        $producto->quantity = $request->quantity;
+        $producto->name = $request->input('name');
+        $producto->price = $request->input('price');
+        $producto->quantity = $request->input('quantity');
 
-        $producto->save();
+
+
+
+        //Para guardar el archivo de imagen
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $path = public_path().'/images/products/';
+            $fileName = uniqid().$image->getClientOriginalName();
+            $image->move($path,$fileName);
+            //Para guardar la referencia la imagen
+            $producto->image = $fileName;
+
+            if($producto->save()){
+                return response()->json(['status'=>201]);
+            }else{
+                return response()->json(['status'=>401]);
+            }
+        }
+
+        if($producto->save()){
+            return response()->json(['status'=>201]);
+        }else{
+            return response()->json(['status'=>401]);
+        }
         
+
     }
 
     /**
@@ -53,7 +78,6 @@ class ProductController extends Controller
     public function show($id)
     {
         return Product::where('id',$id)->get();
-
     }
 
     /**

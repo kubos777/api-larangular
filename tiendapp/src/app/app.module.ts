@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
@@ -9,18 +10,21 @@ import { HttpModule } from '@angular/http';
 import { HomeComponent } from './components/home.component';
 import { ErrorComponent } from './components/error.component';
 import { ListarComponent } from './components/listar.component';
-
+import { AddProductComponent } from './components/add_product.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ErrorComponent,
-    ListarComponent
+    ListarComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
