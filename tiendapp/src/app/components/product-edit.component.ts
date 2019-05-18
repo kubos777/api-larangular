@@ -7,14 +7,19 @@ import { NgForm } from '@angular/forms';
 import { GLOBAL } from '../services/global';
 
 @Component({
-	selector: 'add-product',
-	templateUrl: '../views/add_product.component.html',
+	selector: 'product-edit',
+	templateUrl: '../views/product-edit.component.html',
 	providers:[ProductService]
 })
 
-export class AddProductComponent{
+export class ProductEditComponent{
 	public titulo:string;
+	public id_recibido='';
+	public name='';
+	public price='';
+	public quantity='';
 	public product:Product;
+	public image='';
 	public filedata;
 	constructor(
 		private _route: ActivatedRoute,
@@ -23,11 +28,41 @@ export class AddProductComponent{
 		private _http:HttpClient
 		){
 		this.titulo = "Crear un nuevo producto";
-		this.product = new Product(0,'','','','');
+
+
+
 	}
+	
+
 	ngOnInit(){
+				/**/
+
 		console.log('Listo para crear producto');
+		this._route.params.forEach((params:Params) =>{
+			let id = params['id'];
+			//console.log(id);
+			this._productService.getProducto(id).subscribe(
+				result =>{
+					//console.log(result);
+					this.product = result;
+					this.id_recibido = this.product[0].id;
+					this.name = this.product[0].name;
+					this.price = this.product[0].price;
+					this.quantity = this.product[0].quantity;
+					this.image = this.product[0].image;
+					
+					//console.log(this.product[0]);
+				},
+				error=>{
+					console.log(<any>error);
+				}
+				)
+		});
+
+		console.log(this.name);
+		/**/
 	}
+	
 
 
 	onSubmit(form:NgForm){
@@ -35,22 +70,22 @@ export class AddProductComponent{
 		const headers = new HttpHeaders();
 		headers.append('Content-Type','multipart/form-data');
 		headers.append('Accept','application/json');
-		myFormData.append('name',this.product.name);
-		myFormData.append('price',this.product.price);
-		myFormData.append('quantity',this.product.quantity);
+		myFormData.append('_method','PUT');
+		myFormData.append('id',this.id_recibido);
+		myFormData.append('name',this.name);
+		myFormData.append('price',this.price);
+		myFormData.append('quantity',this.quantity);
 		myFormData.append('image',this.filedata);
 
 		console.log(myFormData);
-		this._http.post(GLOBAL.url+'api/products',myFormData,{headers:headers}).subscribe(data=>{
+
+		this._http.post(GLOBAL.url+'api/products/'+this.id_recibido,myFormData,{headers:headers}).subscribe(data=>{
 			this._router.navigate(['/listar']);
 
 			console.log("Si jaló");
 		},error=>{
 			console.log("No jaló");
 		})
-		
-		
-		
 	}
 
 	fileEvent(event){
@@ -60,7 +95,6 @@ export class AddProductComponent{
 
 
 
-
-
-
+	
+		
 }

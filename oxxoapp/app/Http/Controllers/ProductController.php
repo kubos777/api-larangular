@@ -41,13 +41,10 @@ class ProductController extends Controller
         $producto->price = $request->input('price');
         $producto->quantity = $request->input('quantity');
 
-
-
-
         //Para guardar el archivo de imagen
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $path = public_path().'/images/products/';
+            $path = storage_path().'/images/products/';
             $fileName = uniqid().$image->getClientOriginalName();
             $image->move($path,$fileName);
             //Para guardar la referencia la imagen
@@ -100,7 +97,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = Product::find($id);
+        if (!$producto) {
+             return response()->json(['status'=>201],404);
+        }
+
+        $producto->name = $request->input('name');
+        $producto->price = $request->input('price');
+        $producto->quantity = $request->input('quantity');
+
+
+        //Para guardar el archivo de imagen
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $path = storage_path().'/images/products/';
+            $fileName = uniqid().$image->getClientOriginalName();
+            $image->move($path,$fileName);
+            //Para guardar la referencia la imagen
+            $producto->image = $fileName;
+
+            if($producto->save()){
+                return response()->json(['status'=>201]);
+            }else{
+                return response()->json(['status'=>401]);
+            }
+        }
+
+        if($producto->save()){
+            return response()->json(['status'=>201]);
+        }else{
+            return response()->json(['status'=>401]);
+        }
     }
 
     /**
@@ -111,6 +138,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Product::destroy($id)){
+            return response()->json(['status'=>401],200);
+        }else{
+            return response()->json(['status'=>410],400);
+        }
     }
+
+
 }

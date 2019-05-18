@@ -25,6 +25,9 @@ export class ProductService{
 		return this._http.get(this.url+'api/products').pipe(map(res=>res.json()));
 	}
 
+	getProducto(id){
+		return this._http.delete(this.url+'api/products/'+id).pipe(map(res=>res.json()));
+	}
 	
 
 

@@ -8,16 +8,18 @@
 	<div *ngIf="productos">
 		<div class="row" >
 			
-		<div class="col-md-4" *ngFor="let producto of productos">
-			<div class="card" style="width: 18rem;">
-					<!--<img src="..." class="card-img-top" alt="...">-->
+			<div class="col-md-4" *ngFor="let producto of productos">
+				<div class="card" style="width: 18rem;">
+					<img src="http://localhost/api-larangular/oxxoapp/storage/images/products/{{producto.image}}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title">{{producto.name}}</h5>
 						<ul>
 							<li>{{producto.price}}</li>
 							<li>{{producto.quantity}}</li>
 						</ul>
-						<a href="#" class="btn btn-primary">Comprar</a>
+						<a [routerLink]="['/producto',producto.id]" class="btn btn-primary">Ver</a>&nbsp;&nbsp;
+						<a [routerLink]="['/producto/edit',producto.id]" class="btn btn-warning">Editar</a>&nbsp;&nbsp;
+						<a (click)="onDeleteProducto(producto.id)"  class="btn btn-danger">Eliminar</a>
 					</div>
 				</div>
 			</div>

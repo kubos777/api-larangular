@@ -1,0 +1,43 @@
+
+
+<h3>{{titulo}}</h3>
+<hr>
+{{name}}
+{{price}}
+{{quantity}}
+
+<div class="container">
+	<form #formProduct="ngForm" (ngSubmit)="onSubmit(formProduct)" id="form-product">
+		<input type="hidden" name="id" [(ngModel)]="id_recibido" >
+		<label >Nombre <br>
+			<span *ngIf="!name.valid && name.touched" class="label label-danger">
+				El nombre es obligatorio
+			</span>
+		</label>
+		<input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Nombre" required>
+		<label >Precio <br>
+			<span *ngIf="!price.valid && price.touched" class="label label-danger">
+				El precio es incorrecto
+			</span>
+
+		</label>
+		<input type="text"  name="price" [(ngModel)]="price" class="form-control" placeholder="Precio" required pattern="[0-9]+">
+		<label >Cantidad <br>
+			<span *ngIf="!quantity.valid && quantity.touched" class="label label-danger">
+				La cantidad es incorrecta
+			</span>
+		</label>
+		<input type="text"  name="quantity" [(ngModel)]="quantity" class="form-control" placeholder="Cantidad" required pattern="[0-9]+">
+		<label >Imagen </label>
+		<!--<input type="file"  (change)="fileChangeEvent($event)" class="form-control-file" >-->
+		<br>
+		<img src="http://localhost/api-larangular/oxxoapp/storage/images/products/{{image}}" class="card-img-top" style="width: 20%">
+		<br>
+		<br>
+		<input type="file"  name="image"  (change)="fileEvent($event)" class="form-control-file">
+		<br>
+		<button [disabled]="!formProduct.form.valid" class="btn btn-success">Guardar producto</button>
+
+	</form>
+
+</div>

@@ -11,13 +11,17 @@ import { HomeComponent } from './components/home.component';
 import { ErrorComponent } from './components/error.component';
 import { ListarComponent } from './components/listar.component';
 import { AddProductComponent } from './components/add_product.component';
+import { ProductDetailComponent } from './components/product-detail.component';
+import { ProductEditComponent } from './components/product-edit.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ErrorComponent,
     ListarComponent,
-    AddProductComponent
+    AddProductComponent,
+    ProductDetailComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

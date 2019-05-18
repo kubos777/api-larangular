@@ -1,0 +1,25 @@
+<div class="container">
+	<h3 style="text-align: center;">{{titulo}}</h3>
+	
+	<div *ngIf="!product">
+		<p>Cargando producto...</p>
+	</div>
+	<a class="btn btn-primary" [routerLink]="['/listar']">Regresar</a>
+
+	<div class="row" *ngIf="product">
+
+		<div class="col-md-2" *ngIf="product[0].image">
+			<br>
+			<img src="http://localhost/api-larangular/oxxoapp/storage/images/products/{{product[0].image}}" class="card-img-top" alt="...">
+		</div>
+		<div class="col-md-8">
+			<h3>{{product[0].name}}</h3>
+			<p>Precio: <b>{{product[0].price}}</b></p>
+			<p>Cantidad: <b>{{product[0].quantity}}</b></p>
+		</div>
+
+	</div>
+
+
+
+</div>

@@ -11,7 +11,7 @@ import { Product } from '../models/product';
 export class ListarComponent{
 	public titulo:string;
 	public productos: Product[];
-
+	public product;
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
@@ -34,5 +34,25 @@ export class ListarComponent{
 			}
 			);
 	}
+
+
+	onDeleteProducto(id){
+		this._productService.getProducto(id).subscribe(
+				result =>{
+					console.log(result);
+					//his.product = result;
+					//console.log(this.product);
+					this.productos.splice(this.productos.findIndex(p=>p.id
+						==id),1);
+
+				},
+				error=>{
+					console.log(error);
+
+
+				}
+				)}
+
+
 
 }
